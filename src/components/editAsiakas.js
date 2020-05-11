@@ -10,7 +10,7 @@ export default function EditAsiakas(props) {
   const [open, setOpen] = React.useState(false);
   const [asiakas, setAsiakas] = useState({firstname:'', lastname:'', email:'', phone:'', streetaddress:'', city:''});
 
-  const handleClickOpen = () => {
+  const handleClick = () => {
     setAsiakas({firstname: props.asiakas.firstname, lastname: props.asiakas.lastname, email: props.asiakas.email,
         phone: props.asiakas.phone, streetaddress: props.asiakas.streetaddress, city: props.asiakas.city });
     setOpen(true);
@@ -33,10 +33,10 @@ export default function EditAsiakas(props) {
 
   return(
     <div>
-      <Button color="primary" onClick={handleClickOpen}>
+      <Button color="primary" onClick={handleClick}>
         Edit
       </Button>
-      <Dialog open={open} disableBackdropClick={true} onClose={handleClose} aria-labelledby="form-dialog-title">
+      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Edit customer</DialogTitle>
         <DialogContent>
 

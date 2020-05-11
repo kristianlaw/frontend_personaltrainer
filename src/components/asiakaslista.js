@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import Snackbar from '@material-ui/core/Snackbar';
 import AddAsiakas from './addAsiakas';
 import EditAsiakas from './editAsiakas';
 import AddTreeni from './addTreeni';
-import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
 export default function Asiakaslista() {
   const [asiakas, setAsiakas] = useState([]);
+  const [käyttäjä, setKäyttäjä] = useState('');
+  const [treeni, setTreeni] = useState([]);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
     getAsiakas();
-  }
-   , []);
+    getTreeni();
+  },
+    []);
 
   const getAsiakas = () => {
     fetch('https://customerrest.herokuapp.com/api/customers')
@@ -33,7 +33,6 @@ export default function Asiakaslista() {
             .then(_ => getAsiakas())
             .then(_ => {
              setOpen(true);
-
             })
             .catch(err => console.error(err))
       }
@@ -54,8 +53,11 @@ export default function Asiakaslista() {
   }
 
 
-  const getTreenini = () => {
-
+  const getTreeni = () => {
+    fetch (käyttäjä)
+            .then(response => response.json())
+            .then(data => setTreeni(data.content))
+            .catch(err => console.error(err))
   }
 
 
@@ -75,6 +77,23 @@ export default function Asiakaslista() {
       .catch(err => console.error(err))
   }
 
+
+  const addTreeni = (treeni) => {
+        fetch(käyttäjä,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type':'application/json'
+                },
+                body: JSON.stringify(treeni)
+            }
+        )
+        .then(_ => getTreeni())
+        .then(_ => {
+            setOpen(true);
+        })
+        .catch(err => console.error(err))
+    }
 
   const kolumnit = [
     {
@@ -108,10 +127,16 @@ export default function Asiakaslista() {
       Cell: row => (<EditAsiakas updateAsiakas={updateAsiakas} asiakas={row.original} />)
     },
     {
+      sortable: false,
+      filterable: false,
+      Cell: row => (<Button onClick={() => setKäyttäjä(row.original.links[2].href)}><AddTreeni addTreeni={addTreeni} />
+      </Button>)
+    },
+    {
       filterable: false,
       sortable: false,
       width: 100,
-      Cell: row => (<button onClick={() => deleteAsiakas(row.original.links[0].href)}>Delete</button>)
+      Cell: row => (<Button color="secondary" onClick={() => deleteAsiakas(row.original.links[0].href)}>Delete</Button>)
     }
   ]
 
@@ -129,7 +154,7 @@ export default function Asiakaslista() {
         horizontal: 'left'
       }}
       />
-    
+
     </div>
   )
 }

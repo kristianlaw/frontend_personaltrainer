@@ -10,32 +10,25 @@ import Typography from '@material-ui/core/Typography';
 function App() {
   return (
     <div className="App">
-      <AppBar position="static">
+    <AppBar position="static">
+      <Toolbar>
+        <Typography variant="h4">
+          Personaltrainer
+        </Typography>
+      </Toolbar>
+    </AppBar>
 
       <BrowserRouter>
         <div>
-        <Link to="/">Asiakaslista</Link>{''}
-        <br/>
-        <Link to="/treenilista">Treenilista</Link>{''}
-
-        <Switch>
-          <Route path="/treenilista">
-          
-          </Route>
-
-        </Switch>
+          <Link to="/treenilista">Treenilista  </Link>
+          <Link to="/"> Asiakaslista</Link>
+          <Switch>
+            <Route path="/treenilista" component={Treenilista} />
+            <Route exact path="/" component={Asiakaslista} />
+            <Route render={() => <h2>404 No page with this name found</h2>} />
+          </Switch>
         </div>
       </BrowserRouter>
-
-
-       <Toolbar>
-         <Typography variant="h4">
-           Personaltrainer
-         </Typography>
-
-       </Toolbar>
-     </AppBar>
-      <Asiakaslista />
 
     </div>
   );

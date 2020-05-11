@@ -3,7 +3,7 @@ import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 import Snackbar from '@material-ui/core/Snackbar';
 import AddTreeni from './addTreeni';
-import Moment from 'react-moment';
+import Button from '@material-ui/core/Button';
 
 
 export default function Treenilista() {
@@ -28,7 +28,7 @@ export default function Treenilista() {
     }
 
     const deleteTreeni = (link) => {
-        if (window.confirm('Do you want to delete a training?')) {
+        if (window.confirm('Do you want to delete this trainingsession?')) {
             fetch(link, {method: 'DELETE'})
             .then(_ => getTreeni())
             .then(_ => {
@@ -41,26 +41,26 @@ export default function Treenilista() {
 
     const kolumnit = [
             {
-                Header: "Activity",
+                Header: "Training",
                 accessor: "activity"
             },
             {
                 Header: "Date",
-                Cell: row => (<Moment format="YYYY MMM D" withTitle>{"date"}</Moment>)
+                accessor: "date"
             },
             {
-                Header: "Min",
+                Header: "Minutes",
                 accessor: "duration"
             },
             {
-                Header: "Customer",
-                accessor: "links[0].href"
+                Header: "Name",
+                accessor: "links.[0].href"
             },
             {
                 filterable: false,
                 sortable: false,
                 width: 100,
-                Cell: row => (<button onClick={() => deleteTreeni(row.original.links[0].href)}>Delete</button>)
+                Cell: row => (<Button color="secondary" onClick={() => deleteTreeni(row.original.links[0].href)}>Delete</Button>)
             }
 
         ]
@@ -73,7 +73,7 @@ export default function Treenilista() {
                 open={open}
                 autoHideDuration={2500}
                 onClose={handleClose}
-                message='Training deleted!'
+                message='Trainingsession deleted!'
                 anchorOrigin={{
                     vertical: 'bottom',
                     horizontal: 'left'
