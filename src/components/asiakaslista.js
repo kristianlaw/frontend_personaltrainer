@@ -15,7 +15,7 @@ export default function Asiakaslista() {
 
   useEffect(() => {
     getAsiakas();
-    getTreeni();
+    //getTreeni();
   },
     []);
 
@@ -98,27 +98,27 @@ export default function Asiakaslista() {
   const kolumnit = [
     {
       title: 'Firstname',
-      field: 'firstname'
+      accessor: 'firstname'
     },
     {
       title: 'Lastname',
-      field: 'lastname'
+      accessor: 'lastname'
     },
     {
       title: 'Email',
-      field: 'email'
+      accessor: 'email'
     },
     {
       title: 'Phone',
-      field: 'phone'
+      accessor: 'phone'
     },
     {
       title: 'Address',
-      field: 'streetaddress'
+      accessor: 'streetaddress'
     },
     {
       title: 'City',
-      field: 'city'
+      accessor: 'city'
     },
     {
       filterable: false,

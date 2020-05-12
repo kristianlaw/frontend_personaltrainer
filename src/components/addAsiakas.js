@@ -32,7 +32,7 @@ export default function AddAsiakas(props) {
       <Button style={{margin: 10}} variant="outlined" color="primary" onClick={handleClickOpen}>
         Add a customer
       </Button>
-      <Dialog open={open} disableBackdropClick={true} disableEscapeKeyDown={true} onClose={handleClose} aria-labelledby="form-dialog-title">
+      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">New customer</DialogTitle>
         <DialogContent>
 

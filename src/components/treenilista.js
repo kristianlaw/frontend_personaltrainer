@@ -4,6 +4,7 @@ import 'react-table/react-table.css';
 import Snackbar from '@material-ui/core/Snackbar';
 import AddTreeni from './addTreeni';
 import Button from '@material-ui/core/Button';
+import Asiakaslista from './asiakaslista';
 
 
 export default function Treenilista() {
@@ -54,7 +55,7 @@ export default function Treenilista() {
             },
             {
                 Header: "Name",
-                accessor: "links.[0].href"
+                accessor: "firstname"
             },
             {
                 filterable: false,
