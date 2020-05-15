@@ -10,12 +10,12 @@ export default function AddAsiakas(props) {
   const [open, setOpen] = React.useState(false);
   const [asiakas, setAsiakas] = useState({firstname:'', lastname:'', email:'', phone:'', streetaddress:'', city:''});
 
-  const handleClickOpen = () => {
+  const handleClick = () => {
     setOpen(true);
   }
 
   const handleClose = () => {
-    props.addAsiakas(asiakas);
+    props.addAsiakas(asiakas); //Lisää asiakkaan
     setOpen(false);
   }
 
@@ -29,12 +29,12 @@ export default function AddAsiakas(props) {
 
   return(
     <div>
-      <Button style={{margin: 10}} variant="outlined" color="primary" onClick={handleClickOpen}>
-        Add a customer
-      </Button>
-      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">New customer</DialogTitle>
-        <DialogContent>
+        <Button style={{margin: 10}} variant="outlined" color="primary" onClick={handleClick}>
+          Add a customer
+        </Button>
+        <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+          <DialogTitle id="form-dialog-title">New customer</DialogTitle>
+          <DialogContent>
 
           <TextField
             autoFocus

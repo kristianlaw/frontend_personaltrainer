@@ -4,7 +4,7 @@ import 'react-table/react-table.css';
 import Snackbar from '@material-ui/core/Snackbar';
 import AddTreeni from './addTreeni';
 import Button from '@material-ui/core/Button';
-import Asiakaslista from './asiakaslista';
+
 
 
 export default function Treenilista() {
@@ -13,8 +13,7 @@ export default function Treenilista() {
 
     useEffect(() => {
            getTreeni();
-       },
-       [])
+       },       [])
 
        //Fetchaa treenit API:sta
     const getTreeni = () => {
@@ -27,6 +26,22 @@ export default function Treenilista() {
     const handleClose = () => {
         setOpen(false);
     }
+
+    //Lisää treenin
+    const addTreeni = (treeni) => {
+      fetch ('https://customerrest.herokuapp.com/api/trainings',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type':'application/json'
+        },
+        body: JSON.stringify(treeni)
+      }
+    )
+      .then(_ => getTreeni())
+      .catch(err => console.error(err))
+    }
+
 
     const deleteTreeni = (link) => {
         if (window.confirm('Do you want to delete this trainingsession?')) {
@@ -55,7 +70,7 @@ export default function Treenilista() {
             },
             {
                 Header: "Name",
-                accessor: "firstname"
+                accessor: "links[2].href" //Parempi kuin [0] imo, näytttää /customerin
             },
             {
                 filterable: false,
@@ -69,7 +84,8 @@ export default function Treenilista() {
 
         return(
         <div>
-            <ReactTable defaultPageSize={10}  filterable={true} data={treeni} columns={kolumnit} />
+            <AddTreeni addTreeni={addTreeni} />
+            <ReactTable defaultPageSize={14}  filterable={true} data={treeni} columns={kolumnit} />
             <Snackbar
                 open={open}
                 autoHideDuration={2500}

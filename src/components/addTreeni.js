@@ -15,6 +15,10 @@ export default function Addtreeni(props) {
 
 
     const handleCancel = () => {
+    setOpen(false);
+  }
+
+  const handleClick = () => {
     setOpen(true);
   }
 
@@ -33,11 +37,14 @@ export default function Addtreeni(props) {
 
   return(
         <div>
-            <Button style={{margin: 10}} color="primary" onClick={handleCancel}>New Training</Button>
+            <Button style={{margin: 10}} color="primary" onClick={handleClick}>
+            New Training
+            </Button>
 
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
             <DialogTitle id="form-dialog-title">New Training</DialogTitle>
             <DialogContent>
+
             <TextField
                 autoFocus
                 margin="dense"
@@ -68,12 +75,12 @@ export default function Addtreeni(props) {
             />
             </DialogContent>
             <DialogActions>
-                <button onClick={handleCancel} color="primary">
+                <Button onClick={handleCancel} color="primary">
                   Cancel
-                </button>
-                <button onClick={handleClose} color="primary">
+                </Button>
+                <Button onClick={handleClose} color="primary">
                     Save
-                </button>
+                </Button>
             </DialogActions>
             </Dialog>
         </div>

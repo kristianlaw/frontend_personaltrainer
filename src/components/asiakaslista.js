@@ -15,7 +15,6 @@ export default function Asiakaslista() {
 
   useEffect(() => {
     getAsiakas();
-    //getTreeni();
   },
     []);
 
@@ -74,50 +73,54 @@ export default function Asiakaslista() {
       body: JSON.stringify(asiakas)
       })
       .then(_ => getAsiakas())
+      .then(_ => {
+          setOpen(true);
+        })
       .catch(err => console.error(err))
   }
 
-
   const addTreeni = (treeni) => {
-        fetch(käyttäjä,
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type':'application/json'
-                },
-                body: JSON.stringify(treeni)
-            }
-        )
-        .then(_ => getTreeni())
-        .then(_ => {
-            setOpen(true);
-        })
-        .catch(err => console.error(err))
-    }
+       fetch(käyttäjä,
+           {
+               method: 'POST',
+               headers: {
+                   'Content-Type':'application/json'
+               },
+               body: JSON.stringify(treeni)
+           }
+       )
+       .then(_ => getTreeni())
+       .then(_ => {
+           setOpen(true);
+       })
+       .catch(err => console.error(err))
+   }
+
+
 
   const kolumnit = [
     {
-      title: 'Firstname',
+      Header: 'First name',
       accessor: 'firstname'
     },
     {
-      title: 'Lastname',
+      Header: 'Last name',
       accessor: 'lastname'
     },
     {
-      title: 'Email',
+      Header: 'Email',
       accessor: 'email'
     },
     {
-      title: 'Phone',
+      Header: 'Phone',
       accessor: 'phone'
     },
     {
-      title: 'Address',
+      Header: 'Address',
       accessor: 'streetaddress'
     },
     {
-      title: 'City',
+      Header: 'City',
       accessor: 'city'
     },
     {
@@ -129,7 +132,9 @@ export default function Asiakaslista() {
     {
       sortable: false,
       filterable: false,
-      Cell: row => (<Button onClick={() => setKäyttäjä(row.original.links[2].href)}><AddTreeni addTreeni={addTreeni} />
+      Cell: row => (<Button onClick={() => setKäyttäjä(row.original.links[2].href)}>
+      <AddTreeni addTreeni={addTreeni} />
+
       </Button>)
     },
     {
@@ -143,7 +148,7 @@ export default function Asiakaslista() {
   return (
     <div>
       <AddAsiakas addAsiakas={addAsiakas}/>
-      <ReactTable filterable={true} data={asiakas} columns={kolumnit} />
+      <ReactTable defaultPageSize={14} filterable={true} data={asiakas} columns={kolumnit} />
       <Snackbar
       open={open}
       autoHideDuration={2500}
